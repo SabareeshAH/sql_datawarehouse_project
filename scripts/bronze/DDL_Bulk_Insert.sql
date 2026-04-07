@@ -1,7 +1,7 @@
 
 /*
 ======================================================================
-Performing Bulk insert from the csv file
+Performing Bulk insert from the csv file using stored procedure method 
 ======================================================================
 */
 
