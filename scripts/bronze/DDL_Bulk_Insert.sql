@@ -28,40 +28,40 @@ b_start_time := clock_timestamp();
 	
 	-- Table 1: crm_cust_info
 	start_time := clock_timestamp();
-	RAISE NOTICE '>>> Truncating Table: crm_cust_info';
+	RAISE NOTICE '>>> Truncating Table: bronze.crm_cust_info';
 	TRUNCATE TABLE bronze.crm_cust_info;
 
-	RAISE NOTICE '>>> Inserting Data into:  crm_cust_info';
+	RAISE NOTICE '>>> Inserting Data into: bronze.crm_cust_info';
 	COPY bronze.crm_cust_info (cst_id, cst_key, cst_firstname, cst_lastname, cst_martial_status, cst_gender, cst_create_date)
 	FROM 'C:\Users\Lenovo\Documents\Data Project\Data Warehouse\sql_datawarehouse_project\datasets\source_crm\cust_info.csv'
 	DELIMITER ','
 	CSV HEADER;
 
-	RAISE NOTICE '>>> Processing Completed : crm_cust_info';
+	RAISE NOTICE '>>> Processing Completed : bronze.crm_cust_info';
 	end_time := clock_timestamp();
 	diff_sec := EXTRACT(EPOCH FROM (end_time - start_time));
-	RAISE NOTICE '>>> crm_cust_info Table Load Duration (in Seconds) : %', diff_sec;
+	RAISE NOTICE '>>> bronze.crm_cust_info Table Load Duration (in Seconds) : %', diff_sec;
 	
 	-- Table 2: crm_prd_info
 	start_time := clock_timestamp();
-	RAISE NOTICE '>>> Truncating Table: crm_prd_info';
+	RAISE NOTICE '>>> Truncating Table: bronze.crm_prd_info';
 	TRUNCATE TABLE bronze.crm_prd_info;
 
-	RAISE NOTICE '>>> Inserting Data into:  crm_prd_info';
+	RAISE NOTICE '>>> Inserting Data into: bronze.crm_prd_info';
 	COPY bronze.crm_prd_info (prd_id, prd_key, prd_nm, prd_cost, prd_line, prd_start_dt, prd_end_dt)
 	FROM 'C:\Users\Lenovo\Documents\Data Project\Data Warehouse\sql_datawarehouse_project\datasets\source_crm\prd_info.csv'
 	DELIMITER ','
 	CSV HEADER;
 
-	RAISE NOTICE '>>> Processing Completed : crm_prd_info';
+	RAISE NOTICE '>>> Processing Completed : bronze.crm_prd_info';
 	end_time := clock_timestamp();
 	diff_sec := EXTRACT(EPOCH FROM (end_time - start_time));
-	RAISE NOTICE '>>> crm_prd_info Table Load Duration (in Seconds) : %', diff_sec;
+	RAISE NOTICE '>>> bronze.crm_prd_info Table Load Duration (in Seconds) : %', diff_sec;
 	
 	-- Table 3: crm_sales_details
 	-- handling this alone like this to reduce the redudant data
 	start_time := clock_timestamp();
-	RAISE NOTICE '>>> Truncating Table: crm_sales_details';
+	RAISE NOTICE '>>> Truncating Table: bronze.crm_sales_details';
 	TRUNCATE TABLE bronze.crm_sales_details;
 	
 	-- STEP1: creating the temp table with text datatype
@@ -83,11 +83,9 @@ b_start_time := clock_timestamp();
 	DELIMITER ','
 	CSV HEADER
 	NULL '';
-
-	select * from temp_table;
 	
 	-- STEP 3: Insert into final table with transformations
-	RAISE NOTICE '>>> Inserting Data into:  crm_sales_details';
+	RAISE NOTICE '>>> Inserting Data into: bronze.crm_sales_details';
 	INSERT INTO bronze.crm_sales_details (
     sls_ord_num,
     sls_prd_key,
@@ -133,16 +131,14 @@ b_start_time := clock_timestamp();
 	    NULLIF(TRIM(sls_price), '')::NUMERIC
 	
 	FROM temp_table;
-
-	select * from bronze.crm_sales_details;
 	
 	-- STEP 4: Dropping the Temporary Table
 	DROP TABLE temp_table;
 
-	RAISE NOTICE '>>> Processing Completed : crm_sales_details';
+	RAISE NOTICE '>>> Processing Completed : bronze.crm_sales_details';
 	end_time := clock_timestamp();
 	diff_sec := EXTRACT(EPOCH FROM (end_time - start_time));
-	RAISE NOTICE '>>> crm_sales_details Table Load Duration (in Seconds) : %', diff_sec;
+	RAISE NOTICE '>>> bronze.crm_sales_details Table Load Duration (in Seconds) : %', diff_sec;
 
 	RAISE NOTICE '----------------------------------------------';
 	RAISE NOTICE 'CRM Table Processing Completed Successfully!';
@@ -154,51 +150,51 @@ b_start_time := clock_timestamp();
 	
 	-- Table4: erp_cust_az12
 	start_time := clock_timestamp();
-	RAISE NOTICE '>>> Truncating Table: erp_cust_az12';
+	RAISE NOTICE '>>> Truncating Table: bronze.erp_cust_az12';
 	TRUNCATE TABLE bronze.erp_cust_az12;
 
-	RAISE NOTICE '>>> Inserting Data into:  erp_cust_az12';
+	RAISE NOTICE '>>> Inserting Data into: bronze.erp_cust_az12';
 	COPY bronze.erp_cust_az12 (cid, bdate, gender)
 	FROM 'C:\Users\Lenovo\Documents\Data Project\Data Warehouse\sql_datawarehouse_project\datasets\source_erp\CUST_AZ12.csv'
 	DELIMITER ','
 	CSV HEADER;
 
-	RAISE NOTICE '>>> Processing Completed : erp_cust_az12';
+	RAISE NOTICE '>>> Processing Completed : bronze.erp_cust_az12';
 	end_time := clock_timestamp();
 	diff_sec := EXTRACT(EPOCH FROM (end_time - start_time));
-	RAISE NOTICE '>>> erp_cust_az12 Table Load Duration (in Seconds) : %', diff_sec;
+	RAISE NOTICE '>>> bronze.erp_cust_az12 Table Load Duration (in Seconds) : %', diff_sec;
 	
 	-- Table 5: erp_loc_a101
 	start_time := clock_timestamp();
-	RAISE NOTICE '>>> Truncating Table: erp_loc_a101';
+	RAISE NOTICE '>>> Truncating Table: bronze.erp_loc_a101';
 	TRUNCATE TABLE bronze.erp_loc_a101;
 
-	RAISE NOTICE '>>> Inserting Data into:  erp_loc_a101';
+	RAISE NOTICE '>>> Inserting Data into: bronze.erp_loc_a101';
 	COPY bronze.erp_loc_a101 (cid, cntry)
 	FROM 'C:\Users\Lenovo\Documents\Data Project\Data Warehouse\sql_datawarehouse_project\datasets\source_erp\LOC_A101.csv'
 	DELIMITER ','
 	CSV HEADER;
 
-	RAISE NOTICE '>>> Processing Completed : erp_loc_a101';
+	RAISE NOTICE '>>> Processing Completed : bronze.erp_loc_a101';
 	end_time := clock_timestamp();
 	diff_sec := EXTRACT(EPOCH FROM (end_time - start_time));
-	RAISE NOTICE '>>> erp_loc_a101 Table Load Duration (in Seconds) : %', diff_sec;
+	RAISE NOTICE '>>> bronze.erp_loc_a101 Table Load Duration (in Seconds) : %', diff_sec;
 	
 	-- Table 6: erp_px_cat_g1v2
 	start_time := clock_timestamp();
-	RAISE NOTICE '>>> Truncating Table: erp_px_cat_g1v2';
+	RAISE NOTICE '>>> Truncating Table: bronze.erp_px_cat_g1v2';
 	TRUNCATE TABLE bronze.erp_px_cat_g1v2;
 
-	RAISE NOTICE '>>> Inserting Data into:  erp_px_cat_g1v2';
+	RAISE NOTICE '>>> Inserting Data into: bronze.erp_px_cat_g1v2';
 	COPY bronze.erp_px_cat_g1v2 (id, cat, subcat, maintenance)
 	FROM 'C:\Users\Lenovo\Documents\Data Project\Data Warehouse\sql_datawarehouse_project\datasets\source_erp\PX_CAT_G1V2.csv'
 	DELIMITER ','
 	CSV HEADER;
 
-	RAISE NOTICE '>>> Processing Completed : erp_px_cat_g1v2';
+	RAISE NOTICE '>>> Processing Completed : bronze.erp_px_cat_g1v2';
 	end_time := clock_timestamp();
 	diff_sec := EXTRACT(EPOCH FROM (end_time - start_time));
-	RAISE NOTICE '>>> erp_px_cat_g1v2 Table Load Duration (in Seconds) : %', diff_sec;
+	RAISE NOTICE '>>> bronze.erp_px_cat_g1v2 Table Load Duration (in Seconds) : %', diff_sec;
 
 	RAISE NOTICE '----------------------------------------------';
 	RAISE NOTICE 'ERP Table Processing Completed Successfully!';
