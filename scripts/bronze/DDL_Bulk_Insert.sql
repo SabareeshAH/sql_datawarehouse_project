@@ -83,41 +83,58 @@ b_start_time := clock_timestamp();
 	DELIMITER ','
 	CSV HEADER
 	NULL '';
+
+	select * from temp_table;
 	
 	-- STEP 3: Insert into final table with transformations
 	RAISE NOTICE '>>> Inserting Data into:  crm_sales_details';
 	INSERT INTO bronze.crm_sales_details (
-	    sls_ord_num,
-	    sls_prd_key,
-	    sls_cust_id,
-	    sls_order_dt,
-	    sls_ship_dt,
-	    sls_due_dt,
-	    sls_sales,
-	    sls_quantity,
-	    sls_price
+    sls_ord_num,
+    sls_prd_key,
+    sls_cust_id,
+    sls_order_dt,
+    sls_ship_dt,
+    sls_due_dt,
+    sls_sales,
+    sls_quantity,
+    sls_price
 	)
 	SELECT
 	    sls_ord_num,
 	
-	    CASE WHEN sls_prd_key ~ '^[0-9]+$' THEN sls_prd_key::BIGINT END,
-	    CASE WHEN sls_cust_id ~ '^[0-9]+$' THEN sls_cust_id::BIGINT END,
+	    CASE 
+	      WHEN TRIM(sls_prd_key) <> '' 
+	      THEN TRIM(sls_prd_key)
+	    END,
+	
+	    CASE 
+	      WHEN TRIM(sls_cust_id) ~ '^[0-9]+$' 
+	      THEN TRIM(sls_cust_id)::BIGINT 
+	    END,
 	
 	    -- Safe date parsing
-	    CASE WHEN sls_order_dt ~ '^[0-9]{8}$'
-	         THEN TO_DATE(sls_order_dt, 'YYYYMMDD') END,
+	    CASE 
+	      WHEN sls_order_dt ~ '^[0-9]{8}$'
+	      THEN TO_DATE(sls_order_dt, 'YYYYMMDD') 
+	    END,
 	
-	    CASE WHEN sls_ship_dt ~ '^[0-9]{8}$'
-	         THEN TO_DATE(sls_ship_dt, 'YYYYMMDD') END,
+	    CASE 
+	      WHEN sls_ship_dt ~ '^[0-9]{8}$'
+	      THEN TO_DATE(sls_ship_dt, 'YYYYMMDD') 
+	    END,
 	
-	    CASE WHEN sls_due_dt ~ '^[0-9]{8}$'
-	         THEN TO_DATE(sls_due_dt, 'YYYYMMDD') END,
+	    CASE 
+	      WHEN sls_due_dt ~ '^[0-9]{8}$'
+	      THEN TO_DATE(sls_due_dt, 'YYYYMMDD') 
+	    END,
 	
-	    NULLIF(sls_sales, '')::NUMERIC,
-	    NULLIF(sls_quantity, '')::INT,
-	    NULLIF(sls_price, '')::NUMERIC
+	    NULLIF(TRIM(sls_sales), '')::NUMERIC,
+	    NULLIF(TRIM(sls_quantity), '')::INT,
+	    NULLIF(TRIM(sls_price), '')::NUMERIC
 	
 	FROM temp_table;
+
+	select * from bronze.crm_sales_details;
 	
 	-- STEP 4: Dropping the Temporary Table
 	DROP TABLE temp_table;
