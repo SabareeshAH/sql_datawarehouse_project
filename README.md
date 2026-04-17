@@ -85,6 +85,10 @@ This project follows the **Medallion Architecture**, which organizes data into l
   * Data flow diagrams
   * Architecture layers
   * Entity relationships
+ 
+### Data Catlog
+
+ #### Data Catlog File is created gold layer fact and dimension tables column values are updated with required description.
 
 ## Database Relationship
 
