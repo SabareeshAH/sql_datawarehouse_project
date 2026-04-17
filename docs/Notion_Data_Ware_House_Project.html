@@ -1,0 +1,744 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Data Ware House Project</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3237dcd1-cef6-80e0-8269-f210aa4ecf72" class="page sans"><header><h1 class="page-title" dir="auto">Data Ware House Project</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="ltr"><div id="3237dcd1-cef6-80f7-8a85-dc6a65319711" class="collection-content"><h4 class="collection-title">Data Project Epics</h4><div class="collection-content-wrapper"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><img src="https://www.notion.so/icons/laptop_gray.svg" style="width:14px;height:14px;display:block"/></span>Epics</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/stairs_gray.svg" style="width:14px;height:14px;display:block"/></span>Progress</th></tr></thead><tbody><tr id="3237dcd1-cef6-80fc-8ee4-ebe5987f9560"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Requirement%20Analysis%203237dcd1cef680fc8ee4ebe5987f9560.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/condense_gray.svg"/>Requirement Analysis</a></td><td class="cell-doXF">1</td></tr><tr id="3237dcd1-cef6-8081-9c4d-e809ca041e92"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Design%20Data%20Architecture%203237dcd1cef680819c4de809ca041e92.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_gray.svg"/>Design Data Architecture</a></td><td class="cell-doXF">1</td></tr><tr id="3237dcd1-cef6-806c-a944-ce0989b6ce2a"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Initialization%203237dcd1cef6806ca944ce0989b6ce2a.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/window_gray.svg"/>Project Initialization</a></td><td class="cell-doXF">1</td></tr><tr id="3247dcd1-cef6-80b1-8964-c68599ffb7d9"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Bronze%20Layer%203247dcd1cef680b18964c68599ffb7d9.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_brown.svg"/>Build Bronze Layer</a></td><td class="cell-doXF">1</td></tr><tr id="3247dcd1-cef6-80b4-8c95-d2b0e08c8853"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-doXF">1</td></tr><tr id="3247dcd1-cef6-80d0-bc38-eca97fae6ed3"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-doXF">1</td></tr><tr id="3237dcd1-cef6-80f4-8b9c-dd13ca067d6d"><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Delivery%203237dcd1cef680f48b9cdd13ca067d6d.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/package_gray.svg"/>Project Delivery</a></td><td class="cell-doXF">1</td></tr></tbody></table></div><br/><br/></div></div><div style="display:contents" dir="ltr"><div id="3237dcd1-cef6-8067-af76-dff36fffd888" class="collection-content"><h4 class="collection-title">Data Project Task</h4><div class="collection-content-wrapper"><table class="collection-content"><thead><tr><th><span class="icon property-icon"><img src="https://www.notion.so/icons/arrow-northeast_gray.svg" style="width:14px;height:14px;display:block"/></span>Epic</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/checklist_gray.svg" style="width:14px;height:14px;display:block"/></span>Taks</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/checkmark-square_gray.svg" style="width:14px;height:14px;display:block"/></span>Check Box</th><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>Text</th></tr></thead><tbody><tr id="3237dcd1-cef6-8059-a02d-d3d77d983387"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Requirement%20Analysis%203237dcd1cef680fc8ee4ebe5987f9560.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/condense_gray.svg"/>Requirement Analysis</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Analyze%20and%20Understand%20the%20Requirements%203237dcd1cef68059a02dd3d77d983387.html">Analyze and Understand the Requirements</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-80bd-a0da-fee5f5c03933"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Design%20Data%20Architecture%203237dcd1cef680819c4de809ca041e92.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_gray.svg"/>Design Data Architecture</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Choose%20Data%20Management%20Approach%203237dcd1cef680bda0dafee5f5c03933.html">Choose Data Management Approach</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-807b-902d-e8b9c135d7f3"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Design%20Data%20Architecture%203237dcd1cef680819c4de809ca041e92.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_gray.svg"/>Design Data Architecture</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Design%20the%20Data%20Layers%203237dcd1cef6807b902de8b9c135d7f3.html">Design the Data Layers</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-8072-9042-c24be90fed30"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Design%20Data%20Architecture%203237dcd1cef680819c4de809ca041e92.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_gray.svg"/>Design Data Architecture</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Draw%20the%20Data%20Architecture%203237dcd1cef680729042c24be90fed30.html">Draw the Data Architecture</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-80d6-baba-f7a9010dbb51"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Initialization%203237dcd1cef6806ca944ce0989b6ce2a.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/window_gray.svg"/>Project Initialization</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Create%20Detailed%20Project%20Tasks%20using%20Notion%203237dcd1cef680d6babaf7a9010dbb51.html">Create Detailed Project Tasks using Notion</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-8005-bbe7-c982d2fe3cb2"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Initialization%203237dcd1cef6806ca944ce0989b6ce2a.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/window_gray.svg"/>Project Initialization</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Define%20Project%20Naming%20Conventions%203237dcd1cef68005bbe7c982d2fe3cb2.html">Define Project Naming Conventions</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-8050-84a2-f90ac9c19c77"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Initialization%203237dcd1cef6806ca944ce0989b6ce2a.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/window_gray.svg"/>Project Initialization</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Create%20GIT%20Repository%20and%20Prepare%20the%20repo%20structu%203237dcd1cef6805084a2f90ac9c19c77.html">Create GIT Repository and Prepare the repo structure</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-8069-beb8-ee1027db95db"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Initialization%203237dcd1cef6806ca944ce0989b6ce2a.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/window_gray.svg"/>Project Initialization</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Create%20Database%20and%20Schemas%203237dcd1cef68069beb8ee1027db95db.html">Create Database and Schemas</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3237dcd1-cef6-8022-a4a7-e294af4a5bb7"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Project%20Delivery%203237dcd1cef680f48b9cdd13ca067d6d.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/package_gray.svg"/>Project Delivery</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Deliver%20all%20the%20Project%20Files%20to%20GIT%20Repo%20and%20Upda%203237dcd1cef68022a4a7e294af4a5bb7.html">Deliver all the Project Files to GIT Repo and Update GIT Readme</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3247dcd1-cef6-807d-8009-f5ef64ad5623"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Bronze%20Layer%203247dcd1cef680b18964c68599ffb7d9.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_brown.svg"/>Build Bronze Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Analyzing%20Source%20Systems%203247dcd1cef6807d8009f5ef64ad5623.html">Analyzing: Source Systems</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3247dcd1-cef6-806a-bdc0-ceb4b768c25e"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Bronze%20Layer%203247dcd1cef680b18964c68599ffb7d9.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_brown.svg"/>Build Bronze Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Coding%20Data%20Ingestion%203247dcd1cef6806abdc0ceb4b768c25e.html">Coding: Data Ingestion</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3247dcd1-cef6-8026-a8e6-dd2a04baf703"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Bronze%20Layer%203247dcd1cef680b18964c68599ffb7d9.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_brown.svg"/>Build Bronze Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Validating%20Data%20Completeness%20and%20Schema%20Checks%203247dcd1cef68026a8e6dd2a04baf703.html">Validating: Data Completeness and Schema Checks</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3247dcd1-cef6-80aa-95d0-f1a9702b3084"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Bronze%20Layer%203247dcd1cef680b18964c68599ffb7d9.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_brown.svg"/>Build Bronze Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Documenting%20Drawing%20the%20Bronze%20Layer%20Data%20Flow%20in%20%203247dcd1cef680aa95d0f1a9702b3084.html">Documenting: Drawing the Bronze Layer Data Flow in Data.io</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3247dcd1-cef6-800d-9f72-eb0bb9caafb2"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Bronze%20Layer%203247dcd1cef680b18964c68599ffb7d9.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_brown.svg"/>Build Bronze Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Commit%20Code%20and%20Work%20done%20in%20GIT%20Repo%203247dcd1cef6800d9f72eb0bb9caafb2.html">Commit Code and Work done in GIT Repo</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="33d7dcd1-cef6-80d9-b7e5-d7f6a5c638bb"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Analyze%20Explore%20and%20Understand%20the%20Data%2033d7dcd1cef680d9b7e5d7f6a5c638bb.html">Analyze: Explore and Understand the Data</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="33d7dcd1-cef6-80f0-a0be-df417bdfa0bf"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Document%20Draw%20the%20Relationship%20between%20the%20Data%2033d7dcd1cef680f0a0bedf417bdfa0bf.html">Document: Draw the Relationship between the Data</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="33d7dcd1-cef6-803f-bfbd-c2014a02ecfb"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Coding%20Data%20Cleansing%2033d7dcd1cef6803fbfbdc2014a02ecfb.html">Coding: Data Cleansing</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="33d7dcd1-cef6-802a-9f19-e757fc5839cb"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Validating%20Data%20Correctness%20Check%2033d7dcd1cef6802a9f19e757fc5839cb.html">Validating: Data Correctness Check</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="33d7dcd1-cef6-8020-b57e-c511227abfb0"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Document%20Extend%20Data%20Flow%20for%20Silver%20Layer%2033d7dcd1cef68020b57ec511227abfb0.html">Document: Extend Data Flow for Silver Layer</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="33d7dcd1-cef6-8042-8bd7-e80ca73964f5"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Silver%20Layer%203247dcd1cef680b48c95d2b0e08c8853.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_lightgray.svg"/>Build Silver Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Commit%20Code%20and%20Work%20done%20in%20GIT%20Repo%2033d7dcd1cef680428bd7e80ca73964f5.html">Commit Code and Work done in GIT Repo</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-809d-973e-eeeb8eee15b6"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Analyzing%20Exploring%20the%20Business%20Objects%203407dcd1cef6809d973eeeeb8eee15b6.html">Analyzing: Exploring the Business Objects</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-8013-ab31-d5f9512eee62"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Coding%20Data%20Integration%203407dcd1cef68013ab31d5f9512eee62.html">Coding: Data Integration</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-80dd-b333-ccc846112150"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Validating%20Data%20Integration%20Checks%203407dcd1cef680ddb333ccc846112150.html">Validating: Data Integration Checks</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-808c-8605-e53a52d3c86e"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Document%20Draw%20the%20Data%20Flow%20Diagram%20of%20Star%20Schema%203407dcd1cef6808c8605e53a52d3c86e.html">Document: Draw the Data Flow Diagram of Star Schema</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-8029-87b3-f33e7b489c3a"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Document%20Create%20Data%20Catalog%203407dcd1cef6802987b3f33e7b489c3a.html">Document: Create Data Catalog</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-8098-bd7d-f5e0714635c5"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Document%20Extend%20Data%20Flow%20for%20Gold%20Layer%203407dcd1cef68098bd7df5e0714635c5.html">Document: Extend Data Flow for Gold Layer</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr><tr id="3407dcd1-cef6-8026-9f93-ce763d6e3789"><td class="cell-Gk]G"><a href="Data%20Ware%20House%20Project/Data%20Project%20Epics/Build%20Gold%20Layer%203247dcd1cef680d0bc38eca97fae6ed3.html"><img class="icon notion-static-icon" src="https://www.notion.so/icons/database_yellow.svg"/>Build Gold Layer</a></td><td class="cell-title"><a href="Data%20Ware%20House%20Project/Data%20Project%20Task/Commit%20Code%20and%20Work%20done%20in%20GIT%20Repo%203407dcd1cef680269f93ce763d6e3789.html">Commit Code and Work done in GIT Repo</a></td><td class="cell-f;&lt;\"><div class="checkbox checkbox-on"></div></td><td class="cell-&gt;{Vx"></td></tr></tbody></table></div><br/><br/></div></div><div style="display:contents" dir="auto"><p id="3237dcd1-cef6-8071-b677-eb40f595cc7b" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
